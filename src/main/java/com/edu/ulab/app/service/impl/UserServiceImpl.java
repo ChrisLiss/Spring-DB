@@ -1,6 +1,7 @@
 package com.edu.ulab.app.service.impl;
 
 import com.edu.ulab.app.dto.UserDto;
+import com.edu.ulab.app.entity.Book;
 import com.edu.ulab.app.entity.Person;
 import com.edu.ulab.app.exception.NotFoundForUpdateException;
 import com.edu.ulab.app.mapper.UserMapper;
@@ -8,6 +9,10 @@ import com.edu.ulab.app.repository.UserRepository;
 import com.edu.ulab.app.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Slf4j
 @Service
@@ -55,5 +60,14 @@ public class UserServiceImpl implements UserService {
     public void deleteUserById(Long id) {
         log.info("deleting user with id: {}", id);
         userRepository.deleteById(id);
+    }
+
+    @Override
+    public List<UserDto> getAllUsers() {
+        log.info("get all users:");
+        Iterable<Person> allUsers = userRepository.findAll();
+        return StreamSupport.stream(allUsers.spliterator(), false)
+                .map(userMapper::personToUserDto)
+                .collect(Collectors.toList());
     }
 }

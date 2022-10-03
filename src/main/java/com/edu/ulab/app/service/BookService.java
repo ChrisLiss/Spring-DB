@@ -15,4 +15,6 @@ public interface BookService {
     void deleteBookById(Long id);
 
     List<Long> getListBookIdsByUserId(Long userId);
+
+    List<BookDto> getAllBooks();
 }
