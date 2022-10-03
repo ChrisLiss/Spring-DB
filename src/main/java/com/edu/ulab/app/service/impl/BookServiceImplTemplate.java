@@ -20,6 +20,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Slf4j
 @Service
@@ -47,7 +49,7 @@ public class BookServiceImplTemplate implements BookService {
                 },
                 keyHolder);
 
-        bookDto.setId(Objects.requireNonNull(keyHolder.getKey()).longValue());
+        bookDto.setId(Objects.requireNonNull(keyHolder.getKey()).longValue());  
         return bookDto;
     }
 
@@ -89,5 +91,10 @@ public class BookServiceImplTemplate implements BookService {
         final String DELETE_BOOK_SQL = "DELETE FROM BOOK WHERE ID = ?";
         log.info("Deleting existing book with id: {}", id);
         jdbcTemplate.update(DELETE_BOOK_SQL, id);
+    }
+
+    @Override
+    public List<BookDto> getAllBooks() {
+       return null;
     }
 }

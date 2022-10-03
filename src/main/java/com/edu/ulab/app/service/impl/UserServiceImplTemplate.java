@@ -15,7 +15,10 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Service;
 
 import java.sql.PreparedStatement;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Slf4j
 @Service
@@ -74,5 +77,10 @@ public class UserServiceImplTemplate implements UserService {
         final String DELETE_SQL = "DELETE FROM PERSON WHERE ID = ?";
         log.info("Deleting existing user with id: {}", id);
         jdbcTemplate.update(DELETE_SQL, id);
+    }
+
+    @Override
+    public List<UserDto> getAllUsers() {
+       return null;
     }
 }
